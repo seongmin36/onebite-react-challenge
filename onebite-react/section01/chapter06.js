@@ -12,7 +12,9 @@ console.log(result); // 1020
 // -> 문자열 -> 숫자
 let str1 = "10";
 let strToNum1 = Number(str1);
+console.log("starToNum1:", strToNum1);
 
+// 숫자가 아닌 값을 number 타입으로 (숫자 앞쪽에 위치해야함)
 let str2 = "10개";
 let strToNum2 = parseInt(str2);
 
