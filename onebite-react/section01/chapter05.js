@@ -19,6 +19,7 @@ let myName = "조성민";
 let myLocation = "방학";
 let introduce = myName + myLocation; // 조성민방학
 
+// 템플릿 리터럴 문법
 let introduceText = `${myName}은 ${myLocation}에 거주합니다`;
 
 // 3. Boolean Type
