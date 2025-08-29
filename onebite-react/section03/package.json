@@ -1,0 +1,21 @@
+{
+  "name": "section03",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seongmin36/onebite-react-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/seongmin36/onebite-react-challenge/issues"
+  },
+  "homepage": "https://github.com/seongmin36/onebite-react-challenge#readme",
+  "description": ""
+}
