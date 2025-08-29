@@ -17,5 +17,8 @@
     "url": "https://github.com/seongmin36/onebite-react-challenge/issues"
   },
   "homepage": "https://github.com/seongmin36/onebite-react-challenge#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "randomcolor": "^0.6.2"
+  }
 }
