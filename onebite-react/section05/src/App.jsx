@@ -1,26 +1,23 @@
-import "./App.css";
-import Button from "./components/Button";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Main from "./components/Main";
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const ButtonProps = {
-    text: "메일",
-    color: "red",
-    a: 1,
-    b: 2,
-    c: 3,
+  const [count, setCount] = useState(0);
+  const [light, setLight] = useState('OFF');
+  const PlusNum = () => {
+    setCount(count + 1);
   };
 
   return (
     <>
-      {/* 스프레드 연산자로 Props 전달 */}
-      <Button {...ButtonProps} />
-      <Button text={"카페"} />
-      <Button text={"블로그"}>
-        <div>자식 요소</div>
-      </Button>
+      <div>
+        <h1>{light}</h1>
+        <button onClick={() => setLight(light === 'OFF' ? 'ON' : 'OFF')}>
+          전구 {light === 'OFF' ? '켜기' : '끄기'}
+        </button>
+      </div>
+      <h1>{count}</h1>
+      <button onClick={PlusNum}>+</button>
     </>
   );
 }
