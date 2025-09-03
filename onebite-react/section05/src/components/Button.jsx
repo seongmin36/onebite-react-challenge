@@ -1,5 +1,10 @@
-const Button = () => {
-  return <button>클릭</button>;
+const Button = ({ children, text, color = "black" }) => {
+  return (
+    <button style={{ color: color }}>
+      {text}
+      {children}
+    </button>
+  );
 };
 
 export default Button;
