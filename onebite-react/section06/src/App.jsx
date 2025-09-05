@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import "./App.css";
 import Controller from "./components/Controller";
 import Viewer from "./components/Viewer";
@@ -6,9 +6,9 @@ import Viewer from "./components/Viewer";
 function App() {
   const [count, setCount] = useState(0);
 
-  const onClickButton = (value) => {
-    setCount(count + value);
-  };
+  const onClickButton = useCallback((value) => {
+    setCount((prev) => prev + value);
+  }, []);
 
   return (
     <div className="mx-auto p-[20px] w-[400px]">
