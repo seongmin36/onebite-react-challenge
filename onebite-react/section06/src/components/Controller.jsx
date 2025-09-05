@@ -1,24 +1,15 @@
 const Controller = ({ onClickButton }) => {
+  const buttonNums = [-1, -10, -100, 100, 10, 1];
+
   return (
     <div className="bg-gray-100 border rounded-md border-none p-[20px]">
-      <button onClick={() => onClickButton(-1)} className="btn">
-        -1
-      </button>
-      <button onClick={() => onClickButton(-10)} className="btn">
-        -10
-      </button>
-      <button onClick={() => onClickButton(-100)} className="btn">
-        -100
-      </button>
-      <button onClick={() => onClickButton(100)} className="btn">
-        +100
-      </button>
-      <button onClick={() => onClickButton(10)} className="btn">
-        +10
-      </button>
-      <button onClick={() => onClickButton(1)} className="btn">
-        +1
-      </button>
+      {buttonNums.map((n) => {
+        return (
+          <button key={n} onClick={() => onClickButton(n)} className="btn">
+            {n > 0 ? `+${n}` : n}
+          </button>
+        );
+      })}
     </div>
   );
 };
