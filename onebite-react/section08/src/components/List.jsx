@@ -1,16 +1,16 @@
-import { useState } from "react";
-import "./List.css";
-import TodoItem from "./TodoItem";
+import { useState } from 'react';
+import './List.css';
+import TodoItem from './TodoItem';
 
-const List = ({ todos }) => {
-  const [search, setSearch] = useState("");
+const List = ({ todos, onUpdate, onDelete }) => {
+  const [search, setSearch] = useState('');
 
   const onChange = (e) => {
     setSearch(e.target.value);
   };
 
   const getFilteredData = () => {
-    if (search === "") {
+    if (search === '') {
       return todos;
     }
     return todos.filter((todo) =>
@@ -33,7 +33,12 @@ const List = ({ todos }) => {
       <div className="todos_wrapper">
         {filteredTodos.map((todo) => (
           // 스프레드 연산자로 todo 배열 전달
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem
+            key={todo.id}
+            {...todo}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
         ))}
       </div>
     </div>

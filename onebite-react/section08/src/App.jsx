@@ -1,33 +1,12 @@
-import { useState } from "react";
-import "./App.css";
-import Editer from "./components/Editor";
-import Header from "./components/Header";
-import List from "./components/List";
-import { useRef } from "react";
-
-const mockData = [
-  {
-    id: 0,
-    content: "React 공부하기",
-    date: new Date().getTime(),
-    isDone: true,
-  },
-  {
-    id: 1,
-    content: "React 공부하기",
-    date: new Date().getTime(),
-    isDone: true,
-  },
-  {
-    id: 2,
-    content: "React 공부하기",
-    date: new Date().getTime(),
-    isDone: true,
-  },
-];
+import { useState } from 'react';
+import './App.css';
+import Editer from './components/Editor';
+import Header from './components/Header';
+import List from './components/List';
+import { useRef } from 'react';
 
 function App() {
-  const [todos, setTodos] = useState(mockData);
+  const [todos, setTodos] = useState([]);
   const idRef = useRef(3);
 
   const onCreate = (content) => {
@@ -41,11 +20,27 @@ function App() {
     setTodos((todos) => [newTodo, ...todos]);
   };
 
+  const onUpdate = (targetId) => {
+    // todos State의 값들 중에
+    // targetid와 일치하는 id를 갖는 투두 아이템의 isDone 변경
+
+    // 인수 : todos 배열에서 targetId와 일치하는 id를 갖는 요소의 데이터만 딱 바꾼 새로운 배열
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
+  const onDelete = (targetId) => {
+    setTodos(todos.filter((todo) => todo.id !== targetId));
+  };
+
   return (
     <div className="App">
       <Header />
       <Editer onCreate={onCreate} />
-      <List todos={todos} />
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
   );
 }
