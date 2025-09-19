@@ -1,17 +1,15 @@
-import { useState } from "react";
-import "./Editor.css";
-import { useRef } from "react";
-import { TodoContext } from "../App";
-import { useContext } from "react";
+import { useState, useContext, useRef } from 'react';
+import './Editor.css';
+import { TodoDispatchContext } from '../App';
 
 const Editer = () => {
-  const { onCreate } = useContext(TodoContext);
-  const [value, setValue] = useState("");
+  const { onCreate } = useContext(TodoDispatchContext);
+  const [value, setValue] = useState('');
   const contentRef = useRef();
 
   const onKeyDown = (e) => {
     // 13: enter key
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       onSubmit(e);
     }
   };
@@ -22,9 +20,9 @@ const Editer = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (value.trim() !== "") {
+    if (value.trim() !== '') {
       onCreate(value);
-      setValue("");
+      setValue('');
     }
     contentRef.current.focus();
   };

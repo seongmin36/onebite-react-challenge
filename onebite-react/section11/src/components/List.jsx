@@ -1,19 +1,19 @@
-import { useState, useContext } from "react";
-import "./List.css";
-import TodoItem from "./TodoItem";
-import { useMemo } from "react";
-import { TodoContext } from "../App";
+import { useState, useContext } from 'react';
+import './List.css';
+import TodoItem from './TodoItem';
+import { useMemo } from 'react';
+import { TodoStateContext } from '../App';
 
 const List = () => {
-  const { todos } = useContext(TodoContext);
-  const [search, setSearch] = useState("");
+  const todos = useContext(TodoStateContext);
+  const [search, setSearch] = useState('');
 
   const onChange = (e) => {
     setSearch(e.target.value);
   };
 
   const getFilteredData = () => {
-    if (search === "") {
+    if (search === '') {
       return todos;
     }
     return todos.filter((todo) =>
@@ -26,7 +26,7 @@ const List = () => {
   const filteredTodos = getFilteredData();
 
   const { totalCount, doneCount, notDoneCount } = useMemo(() => {
-    console.log("getAnalyzedData 호출");
+    console.log('getAnalyzedData 호출');
     const totalCount = todos.length;
     const doneCount = todos.filter((todo) => todo.isDone).length; // filter() 메서드는 배열 길이가 길어질수록 순회하여 계산하기 때문에 굉장히 오래걸림
     const notDoneCount = totalCount - doneCount;
