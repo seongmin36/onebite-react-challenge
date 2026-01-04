@@ -23,13 +23,10 @@ function App() {
       </div>
       <button onClick={() => onClickButton("/")}>Home 페이지로 이동</button>
       <button onClick={() => onClickButton("/new")}>New 페이지로 이동</button>
-      <button onClick={() => onClickButton("/diary")}>
-        Diary 페이지로 이동
-      </button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
-        <Route path="/diary" element={<Diary />} />
+        <Route path="/diary/:id" element={<Diary />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
