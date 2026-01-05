@@ -8,7 +8,6 @@ const Diary = () => {
   const [queryString, setQueryString] = useSearchParams();
   // 쿼리스트링 수정
   setQueryString("value", "1234");
-  console.log(queryString.get("value"));
 
   return (
     <div>
