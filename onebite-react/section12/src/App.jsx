@@ -12,25 +12,25 @@ import Header from "./components/Header";
 const mockData = [
   {
     id: 1,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2026-01-07").getTime(),
     emotionId: 1,
     content: "1번 일기 내용",
   },
   {
     id: 2,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2026-01-06").getTime(),
     emotionId: 2,
     content: "2번 일기 내용",
   },
   {
     id: 3,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2026-01-05").getTime(),
     emotionId: 3,
     content: "3번 일기 내용",
   },
   {
     id: 4,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2025-12-04").getTime(),
     emotionId: 4,
     content: "4번 일기 내용",
   },
@@ -51,8 +51,8 @@ function reducer(state, action) {
   }
 }
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 // 1. "/" : 모든 일기를 조회하는 Home 페이지
 // 2. "/new" : 새로운 일기를 작성하는 New 페이지
