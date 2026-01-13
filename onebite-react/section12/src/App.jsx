@@ -49,7 +49,9 @@ function reducer(state, action) {
   }
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const DiaryStateContext = createContext();
+// eslint-disable-next-line react-refresh/only-export-components
 export const DiaryDispatchContext = createContext();
 
 // 1. "/" : 모든 일기를 조회하는 Home 페이지

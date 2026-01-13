@@ -3,6 +3,7 @@ import Button from "./Button";
 import "./Editor.css";
 import EmotionItem from "./EmotionItem";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const emotionList = [
   {
@@ -27,13 +28,23 @@ const emotionList = [
   },
 ];
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ onSubmit, initData }) => {
   const [input, setInput] = useState({
     createdDate: new Date(),
     emotionId: 3,
     content: "",
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initData) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setInput({
+        ...initData,
+        createdDate: new Date(Number(initData.createdDate)),
+      });
+    }
+  }, [initData]);
 
   const getStringedDate = (targetDate) => {
     let year = targetDate.getFullYear();
