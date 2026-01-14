@@ -4,14 +4,13 @@ import Button from "../components/Button";
 import Editor from "../components/Editor";
 import { useContext } from "react";
 import { DiaryDispatchContext, DiaryStateContext } from "../App";
-import { useEffect, useState } from "react";
+import useDiary from "../hooks/useDiary";
 
 const Edit = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
-  const data = useContext(DiaryStateContext);
-  const [curDiaryItem, setCurDiaryItem] = useState(null);
+  const curDiaryItem = useDiary(params.id);
 
   const onClickDelete = () => {
     if (window.confirm("일기를 정말 삭제할까요? 다시 복구되지 않아요!")) {
@@ -19,19 +18,6 @@ const Edit = () => {
       navigate("/", { replace: true });
     }
   };
-
-  useEffect(() => {
-    const currentDiaryItem = data.find(
-      (item) => String(item.id) === String(params.id)
-    );
-
-    if (!currentDiaryItem) {
-      window.alert("존재하지 않은 일기입니다.");
-      navigate("/", { replace: true });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    setCurDiaryItem(currentDiaryItem);
-  }, [params.id]);
 
   const onSubmit = (input) => {
     if (window.confirm("일기를 정말 수정할까요?")) {
