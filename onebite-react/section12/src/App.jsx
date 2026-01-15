@@ -6,46 +6,29 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import NotFound from "./pages/NotFound";
-
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date("2026-01-07").getTime(),
-    emotionId: 1,
-    content: "1번 일기 내용",
-  },
-  {
-    id: 2,
-    createdDate: new Date("2026-01-06").getTime(),
-    emotionId: 2,
-    content: "2번 일기 내용",
-  },
-  {
-    id: 3,
-    createdDate: new Date("2026-01-05").getTime(),
-    emotionId: 3,
-    content: "3번 일기 내용",
-  },
-  {
-    id: 4,
-    createdDate: new Date("2025-12-04").getTime(),
-    emotionId: 4,
-    content: "4번 일기 내용",
-  },
-];
+import { useEffect } from "react";
+import { useState } from "react";
 
 function reducer(state, action) {
+  let nextState;
+
   switch (action.type) {
+    case "INIT":
+      return action.data;
     case "CREATE":
-      return [action.data, ...state];
+      nextState = [action.data, ...state];
+      break;
     case "UPDATE":
-      return state.map((item) =>
+      nextState = state.map((item) =>
         String(item.id) === String(action.data.id) ? action.data : item
       );
+      break;
     case "DELETE":
-      return state.filter((item) => String(item.id) !== String(action.id));
+      nextState = state.filter((item) => String(item.id) !== String(action.id));
+      break;
     default:
-      return state;
+      localStorage.setItem("diary", JSON.stringify(nextState));
+      return nextState;
   }
 }
 
@@ -59,8 +42,39 @@ export const DiaryDispatchContext = createContext();
 // 3. "/diary/:id" : 일기장을 상세히 조회하는 Diary 페이지
 // 4. "/edit/:id" : 일기장을 수정하는 Edit 페이지
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(5);
+  const [isLoding, setIsLoding] = useState(false);
+  const [data, dispatch] = useReducer(reducer, []);
+  const idRef = useRef(0);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("diary");
+    if (!storedData) {
+      setIsLoding(false);
+      return;
+    }
+
+    const parsedData = JSON.parse(storedData);
+    if (!Array.isArray(parsedData)) {
+      setIsLoding(false);
+      return;
+    }
+
+    let maxId = 0;
+    parsedData.forEach((item) => {
+      if (Number(item.id) > maxId) {
+        maxId = Number(item.id);
+      }
+    });
+
+    idRef.current = maxId + 1;
+
+    dispatch({
+      type: "INIT",
+      data: parsedData.sort((a, b) => Number(b.id) - Number(a.id)),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setIsLoding(false);
+  }, []);
 
   // 새로운 일기 작성 함수
   const onCreate = (createdDate, emotionId, content) => {
@@ -95,6 +109,10 @@ function App() {
       id,
     });
   };
+
+  if (isLoding) {
+    return <div>데이터 로딩중입니다...</div>;
+  }
 
   return (
     <>

@@ -5,6 +5,7 @@ import EmotionItem from "./EmotionItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import { emotionList } from "../util/constants";
+import { getStringedDate } from "../util/get-stringed-date";
 
 const Editor = ({ onSubmit, initData }) => {
   const [input, setInput] = useState({
@@ -23,21 +24,6 @@ const Editor = ({ onSubmit, initData }) => {
       });
     }
   }, [initData]);
-
-  const getStringedDate = (targetDate) => {
-    let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let date = targetDate.getDate();
-
-    if (month < 10) {
-      month = `0${month}`;
-    }
-    if (date < 10) {
-      date = `0${date}`;
-    }
-
-    return `${year}-${month}-${date}`;
-  };
 
   const onChangeInput = (e) => {
     let name = e.target.name;
