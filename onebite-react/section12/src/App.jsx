@@ -17,18 +17,20 @@ function reducer(state, action) {
       return action.data;
     case "CREATE":
       nextState = [action.data, ...state];
-      break;
+      localStorage.setItem("diary", JSON.stringify(nextState));
+      return nextState;
     case "UPDATE":
       nextState = state.map((item) =>
         String(item.id) === String(action.data.id) ? action.data : item
       );
-      break;
-    case "DELETE":
-      nextState = state.filter((item) => String(item.id) !== String(action.id));
-      break;
-    default:
       localStorage.setItem("diary", JSON.stringify(nextState));
       return nextState;
+    case "DELETE":
+      nextState = state.filter((item) => String(item.id) !== String(action.id));
+      localStorage.setItem("diary", JSON.stringify(nextState));
+      return nextState;
+    default:
+      return state;
   }
 }
 
@@ -42,7 +44,7 @@ export const DiaryDispatchContext = createContext();
 // 3. "/diary/:id" : 일기장을 상세히 조회하는 Diary 페이지
 // 4. "/edit/:id" : 일기장을 수정하는 Edit 페이지
 function App() {
-  const [isLoding, setIsLoding] = useState(false);
+  const [isLoding, setIsLoding] = useState(true);
   const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
 
